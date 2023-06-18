@@ -8,20 +8,27 @@
 </head>
 <body>
     <h1>Welcome to My Flask Blog!</h1>
-    <div class="post">
-        <h2>Post Title</h2>
-        <p><em>Written by ...</em></p>
-        <p>Post content</p>
-    </div>
-    <div class="post">
-        <h2>Post Title</h2>
-        <p><em>Written by ...</em></p>
-        <p>Post content</p>
-    </div>
-    <div class="post">
-        <h2>Post Title</h2>
-        <p><em>Written by ...</em></p>
-        <p>Post content</p>
-    </div>
+    <ul>
+        {% for item in posts %}
+            <li class="post">
+                <h2>{{item['title']}}</h2>
+                <p><em>Written by {{item['author']}}</em></p>
+                <p>{{item['content']}}</p>
+                <form action="/update/{{item['id']}}" method="get">
+                    <p><input type="submit" value="Edit..."></p>
+                </form>
+                <form action="/delete/{{item['id']}}" method="get">
+                    <p><input type="submit" value="Delete X"></p>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul>
+        <li class="post">
+        <form action="/add" method="get">
+         <input type="submit" value="+ Add post">
+        </form>
+        </li>
+    </ul>
 </body>
 </html>
