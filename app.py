@@ -59,14 +59,13 @@ def update(post_id):
         found_post["content"] = request.form.get('content')
 
         for item in post_list:
-            for key in item.keys():
-                if key in found_post:
-                    item[key] = found_post[key]
+            if item['id'] == int(post_id):
+                item = found_post
         with open("data-structure.json", "w") as writable:
             writable.write(json.dumps(post_list))
         return index()
 
-    return render_template('update.html', post=post)
+    return render_template('update.html', post=found_post)
 
 
 @app.route('/')
@@ -78,4 +77,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=5000)
